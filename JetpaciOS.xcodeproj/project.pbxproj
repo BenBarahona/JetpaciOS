@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9D229A861784AEC00041EEAF /* Level_HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D229A851784AEC00041EEAF /* Level_HUD.m */; };
 		9D229A891784B43F0041EEAF /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D229A881784B43F0041EEAF /* Util.m */; };
+		9D229A8C178B2D1C0041EEAF /* GameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D229A8B178B2D1C0041EEAF /* GameInfo.m */; };
 		9D25D136177F8CCE0020F716 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D25D135177F8CCE0020F716 /* QuartzCore.framework */; };
 		9D25D138177F8CCE0020F716 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D25D137177F8CCE0020F716 /* OpenGLES.framework */; };
 		9D25D13A177F8CCE0020F716 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D25D139177F8CCE0020F716 /* OpenAL.framework */; };
@@ -212,6 +213,8 @@
 		9D229A851784AEC00041EEAF /* Level_HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level_HUD.m; sourceTree = "<group>"; };
 		9D229A871784B43F0041EEAF /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		9D229A881784B43F0041EEAF /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		9D229A8A178B2D1B0041EEAF /* GameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameInfo.h; sourceTree = "<group>"; };
+		9D229A8B178B2D1C0041EEAF /* GameInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameInfo.m; sourceTree = "<group>"; };
 		9D25D132177F8CCE0020F716 /* JetpaciOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JetpaciOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D25D135177F8CCE0020F716 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9D25D137177F8CCE0020F716 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -639,6 +642,38 @@
 			name = "Level Things";
 			sourceTree = "<group>";
 		};
+		9D229A8D178B2D7D0041EEAF /* Game Objects */ = {
+			isa = PBXGroup;
+			children = (
+				9D25D2FB177FAC100020F716 /* Jetman.h */,
+				9D25D2FC177FAC100020F716 /* Jetman.m */,
+				9D25D45D177FFCCD0020F716 /* Platform.h */,
+				9D25D45E177FFCCD0020F716 /* Platform.m */,
+				9D25D6BB178012000020F716 /* Laser.h */,
+				9D25D6BC178012000020F716 /* Laser.m */,
+				9D25D6C217801F4D0020F716 /* Rocket1.h */,
+				9D25D6C317801F4D0020F716 /* Rocket1.m */,
+				9D25D6E3178033390020F716 /* PickUpItem.h */,
+				9D25D6E4178033390020F716 /* PickUpItem.m */,
+				9D25D6C51780205C0020F716 /* Meteor.h */,
+				9D25D6C61780205D0020F716 /* Meteor.m */,
+				9D25D6EB178069B90020F716 /* Explode.h */,
+				9D25D6EC178069BA0020F716 /* Explode.m */,
+			);
+			name = "Game Objects";
+			sourceTree = "<group>";
+		};
+		9D229A8E178B2D9D0041EEAF /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				9D25D70D1780AFBA0020F716 /* Cutscene.h */,
+				9D25D70E1780AFBB0020F716 /* Cutscene.m */,
+				9D25D2ED177F96590020F716 /* Level1.h */,
+				9D25D2EE177F96590020F716 /* Level1.m */,
+			);
+			name = Levels;
+			sourceTree = "<group>";
+		};
 		9D25D129177F8CCE0020F716 = {
 			isa = PBXGroup;
 			children = (
@@ -683,28 +718,14 @@
 				9D25D2DE177F8CD30020F716 /* HelloWorldLayer.m */,
 				9D25D2E0177F8CD30020F716 /* IntroLayer.h */,
 				9D25D2E1177F8CD30020F716 /* IntroLayer.m */,
-				9D25D70D1780AFBA0020F716 /* Cutscene.h */,
-				9D25D70E1780AFBB0020F716 /* Cutscene.m */,
-				9D25D2ED177F96590020F716 /* Level1.h */,
-				9D25D2EE177F96590020F716 /* Level1.m */,
-				9D25D2FB177FAC100020F716 /* Jetman.h */,
-				9D25D2FC177FAC100020F716 /* Jetman.m */,
-				9D25D45D177FFCCD0020F716 /* Platform.h */,
-				9D25D45E177FFCCD0020F716 /* Platform.m */,
-				9D25D6BB178012000020F716 /* Laser.h */,
-				9D25D6BC178012000020F716 /* Laser.m */,
-				9D25D6C217801F4D0020F716 /* Rocket1.h */,
-				9D25D6C317801F4D0020F716 /* Rocket1.m */,
-				9D25D6E3178033390020F716 /* PickUpItem.h */,
-				9D25D6E4178033390020F716 /* PickUpItem.m */,
-				9D25D6C51780205C0020F716 /* Meteor.h */,
-				9D25D6C61780205D0020F716 /* Meteor.m */,
-				9D25D6EB178069B90020F716 /* Explode.h */,
-				9D25D6EC178069BA0020F716 /* Explode.m */,
+				9D229A8E178B2D9D0041EEAF /* Levels */,
+				9D229A8D178B2D7D0041EEAF /* Game Objects */,
 				9D229A841784AEBF0041EEAF /* Level_HUD.h */,
 				9D229A851784AEC00041EEAF /* Level_HUD.m */,
 				9D229A871784B43F0041EEAF /* Util.h */,
 				9D229A881784B43F0041EEAF /* Util.m */,
+				9D229A8A178B2D1B0041EEAF /* GameInfo.h */,
+				9D229A8B178B2D1C0041EEAF /* GameInfo.m */,
 				9D25D14A177F8CCE0020F716 /* Resources */,
 				9D25D162177F8CCE0020F716 /* libs */,
 				9D25D2D6177F8CD30020F716 /* Supporting Files */,
@@ -1416,6 +1437,7 @@
 				9D25D70F1780AFBC0020F716 /* Cutscene.m in Sources */,
 				9D229A861784AEC00041EEAF /* Level_HUD.m in Sources */,
 				9D229A891784B43F0041EEAF /* Util.m in Sources */,
+				9D229A8C178B2D1C0041EEAF /* GameInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

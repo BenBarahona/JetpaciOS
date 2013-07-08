@@ -18,6 +18,7 @@
 #import "Meteor.h"
 #import "Explode.h"
 #import "SimpleAudioEngine.h"
+#import "Level_HUD.h"
 
 @interface Level1 : CCLayer <ZJoystickDelegate, laserDelegate, enemyDelegate>
 {
@@ -27,50 +28,36 @@
     Platform *platform3;
     
     Jetman *jetman;
-    
     Rocket1 *rocket;
     PickUpItem *topRocket;
     PickUpItem *middleRocket;
-    
     PickUpItem *currentFuelTank;
-    
+    PickUpItem *currentItem;
     ZJoystick *joystick;
+    
+    CCSprite *pauseBtn;
     
     CGPoint velocity;
     
     BOOL spawnFuel;
-    
-    NSUInteger maxLasers;
-    NSInteger currentLasers;
-    
     BOOL spawnEnemy;
+    BOOL spawnItem;
+    BOOL playerIsDead;
+    
+    NSUInteger *rocketBonus;
+    NSUInteger maxLasers;
     NSUInteger maxEnemies;
+    NSInteger currentLasers;
     NSInteger currentEnemies;
     
     NSMutableArray *enemyList;
     NSMutableArray *laserList;
     
-    BOOL playerIsDead;
-    
-    NSUInteger playerLives;
-    NSUInteger totalScore;
-    NSUInteger highScore;
-    NSUInteger bonusScore;
-    
-    CCLabelTTF *scoreLabel;
-    CCLabelTTF *livesLabel;
-    CCLabelTTF *bonusLabel;
-    CCLabelTTF *highScoreLabel;
     CCLabelTTF *gameOver;
-    
-    BOOL gameIsPaused;
-    CCSprite *pauseBtn;
-    
-    BOOL spawnItem;
-    PickUpItem *currentItem;
-    
-    NSUInteger *rocketBonus;
+    Level_HUD *hud;
+    GameInfo *game;
 }
 
 +(CCScene *) scene;
+
 @end

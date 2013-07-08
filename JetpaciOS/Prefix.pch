@@ -12,4 +12,5 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Util.h"
+#import "GameInfo.h"
 #endif

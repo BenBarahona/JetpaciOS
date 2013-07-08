@@ -8,6 +8,8 @@
 
 #import "Util.h"
 
+#define HIGHSCORE_KEY @"HIGH_SCORES"
+
 @implementation Util
 
 + (NSString *)formatStringForHUD:(NSInteger)number
@@ -36,6 +38,26 @@
 	{
 		return [NSString stringWithFormat:@"%d", number];
 	}
+}
+
++ (void) saveHighScore:(NSUInteger)highScore
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInt:highScore] forKey:HIGHSCORE_KEY];
+    [defaults synchronize];
+}
+
++ (NSUInteger) loadHighScore
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if([defaults objectForKey:HIGHSCORE_KEY])
+    {
+        return [[defaults objectForKey:HIGHSCORE_KEY] intValue];
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 @end

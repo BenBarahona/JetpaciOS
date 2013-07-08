@@ -16,9 +16,9 @@
 {
     if( (self=[super initWithFile:@"fireball.png"]))
     {
-    windowSize = [[CCDirector sharedDirector] winSize];
-    direction = dir;
-    [self schedule:@selector(update:)];
+        windowSize = [[CCDirector sharedDirector] winSize];
+        direction = dir;
+        [self scheduleUpdate];
     }
     return self;
 }
@@ -31,9 +31,8 @@
     
     if(self.position.x > windowSize.width || self.position.x < 0)
     {
-        //CCLOG(@"Removing Laser");
         [self.delegate didRemoveLaser:self];
-        [self removeFromParent];
+        [self removeFromParentAndCleanup:YES];
     }
 }
 

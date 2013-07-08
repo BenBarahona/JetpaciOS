@@ -84,6 +84,11 @@
 								 multiSampling:NO
 							   numberOfSamples:0];
     [glView setMultipleTouchEnabled:YES];
+    
+    //Setting up game variables
+    [GameInfo sharedInstance].lives = 5;
+    [GameInfo sharedInstance].score = 0;
+    [GameInfo sharedInstance].highScore = [Util loadHighScore];
 	
 	director_ = (CCDirectorIOS*) [CCDirector sharedDirector];
 	

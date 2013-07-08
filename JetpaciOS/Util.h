@@ -11,4 +11,6 @@
 @interface Util : NSObject
 
 + (NSString *)formatStringForHUD:(NSInteger)number;
++ (void) saveHighScore:(NSUInteger)highScore;
++ (NSUInteger) loadHighScore;
 @end

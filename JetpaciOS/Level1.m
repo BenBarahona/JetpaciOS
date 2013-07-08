@@ -39,6 +39,7 @@
     {
 		// ask director for the window size
         CGSize size = [[CCDirector sharedDirector] winSize];
+        
         laserList = [[NSMutableArray array] retain];
         enemyList = [[NSMutableArray array] retain];
         
@@ -68,18 +69,13 @@
         spawnEnemy = YES;
         playerIsDead = NO;
         spawnItem = YES;
-        playerLives = 4;
-        totalScore = 0;
-        bonusScore = 5000;
-        highScore = 0;//[Util loadHighScore];
         
-        gameIsPaused = NO;
+        game = [GameInfo sharedInstance];
+        game.bonus = 5000;
+        game.bonusInterval = 3;
         
-        [self setupHUD];
-        [self registerWithTouchDispatcher];
-        [self schedule:@selector(update:)];
-        [self schedule:@selector(updateBonus:) interval:1.5];
-        [self schedule:@selector(spawnItem) interval:1.0];
+        hud = [Level_HUD node];
+        [self addChild:hud z:1];
         
         pauseBtn = [CCSprite spriteWithFile:@"pauseBtn_noborder.png"];
         pauseBtn.position = ccp(460,300);
@@ -90,27 +86,18 @@
         CCMenu *menu = [CCMenu menuWithItems:pauseBtn, nil];
         menu.position = CGPointZero;
         [self addChild:menu];
+         
         */
-        [[SimpleAudioEngine sharedEngine] playEffect:@"Start and Item Get.wav"];
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Jetpac Song.wav" loop:YES];
+        [self scheduleUpdate];
+        [self schedule:@selector(spawnItem) interval:1.0];
         
-        [self loadHighScore];
+        [[SimpleAudioEngine sharedEngine] playEffect:@"Start and Item Get.wav"];
+        //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Jetpac Song.wav" loop:YES];
+        
+        [self registerWithTouchDispatcher];
 	}
 	
 	return self;
-}
-
-- (void)togglePause
-{
-    NSLog(@"TOGGLE PAUSE");
-    if(gameIsPaused)
-    {
-        gameIsPaused = NO;
-    }
-    else
-    {
-        gameIsPaused = YES;
-    }
 }
 
 - (void) addLevelObjects
@@ -122,7 +109,6 @@
     [self addChild: background];
     
     floor = [[Platform alloc] initWithFile:@"platform_long.png"];
-    //floor = [CCSprite spriteWithFile:@"platform_long.png"];
     floor.position = ccp(size.width / 2, 5);
     [self addChild:floor];
     
@@ -165,7 +151,7 @@
     // ask director for the window size
     if(gameOver)
     {
-        playerLives = 4;
+        game.lives = 4;
         [gameOver removeFromParent];
         gameOver = nil;
     }
@@ -201,8 +187,7 @@
     velocity = ccp(0, 0);
     currentLasers = 0;
     currentEnemies = 0;
-    bonusScore = 5000;
-    [self updateBonus:0];
+    game.bonus = 5000;
     
     spawnEnemy = YES;
     playerIsDead = NO;
@@ -212,8 +197,8 @@
     [enemyList removeAllObjects];
     [laserList removeAllObjects];
     
-    [self schedule:@selector(update:)];
-    [self schedule:@selector(spawnItem) interval:1.0];
+    [self resumeSchedulerAndActions];
+    [hud resumeSchedulerAndActions];
 }
 
 -(void) registerWithTouchDispatcher
@@ -247,11 +232,7 @@
 
 -(void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    /*
-    NSLog(@"Touch: %@", NSStringFromCGPoint(location));
-    [jetman stopAllActions];
-    [jetman runAction:[CCMoveTo actionWithDuration:2 position:location]];
-    */
+    
 }
 
 - (void)joystickControlBegan
@@ -292,8 +273,6 @@
 
 - (void) update:(ccTime)delta
 {
-    if(!gameIsPaused)
-    {
         if([self checkCollisionsForPlayer])
         {
             jetman.isTouchingGround = YES;
@@ -332,13 +311,11 @@
         }
         
         [self spawnThings];
-        [self updateHUD];
         
         if([self canFinishLevel])
         {
             [self finishLevel];
         }
-    }
 }
 
 -(void)updateItem:(PickUpItem *)item
@@ -361,7 +338,7 @@
         }
         else
         {
-            totalScore += item.score;
+            game.score += item.score;
             item.score = 0;
             item.isBeingHeld = NO;
             [item removeFromParentAndCleanup:YES];
@@ -379,7 +356,7 @@
     if(item.position.y <= item.dispatchPoint.y - 5 && item.position.x >= item.dispatchPoint.x - 5 && item.position.x <= item.dispatchPoint.x + 5)
     {
         [[SimpleAudioEngine sharedEngine] playEffect:@"Fuel or Rocket Part Set.wav"];
-        totalScore += item.score;
+        game.score += item.score;
         [rocket updateRocket];
         item.stopUpdating = YES;
         
@@ -403,7 +380,6 @@
 
 - (void)updateLasers
 {
-    //NSLog(@"LASERS: %@ ENEMIES: %@", laserList, enemyList);
     for(Laser *laser in laserList)
     {
         for(Meteor *meteor in enemyList)
@@ -449,7 +425,7 @@
                 if([self checkCollisionBetweenLaser:laser andEnemy:meteor])
                 {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"Death.wav"];
-                    totalScore += meteor.score;
+                    game.score += meteor.score;
                     [self createExplostionAtPoint:meteor.position];
                     currentEnemies--;
                     currentLasers--;
@@ -602,9 +578,13 @@
 
 - (void) jetmanDie
 {
-    playerLives --;
+    game.lives --;
     playerIsDead = YES;
-    [self unschedule:@selector(update:)];
+    
+    [hud pauseSchedulerAndActions];
+    [self pauseSchedulerAndActions];
+    
+    //[self unschedule:@selector(update:)];
     [jetman removeFromParent];
     
     for(Meteor *enemy in enemyList)
@@ -634,24 +614,23 @@
         middleRocket.isBeingHeld = NO;
     
     
-    if(playerLives != 0)
+    if(game.lives != 0)
     {
         [self performSelector:@selector(reloadLevel) withObject:nil afterDelay:2.0];
     }
     else
     {
         CGSize size = [[CCDirector sharedDirector] winSize];
-        if(totalScore > highScore)
-        {
-            highScore = totalScore;
-        }
-        [self saveHighScore];
+        [hud saveHighScore];
         
-        totalScore = 0;
+        //game.score = 0;
         gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"pixelmix.ttf" fontSize:30];
         gameOver.position = ccp(size.width / 2, size.height / 2 + 10);
         [self addChild:gameOver];
-        [self performSelector:@selector(reloadLevel) withObject:nil afterDelay:5.0];
+        
+        [self unscheduleAllSelectors];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionScene transitionWithDuration:3.0 scene:[Level1 scene]]];
+        //[self performSelector:@selector(reloadLevel) withObject:nil afterDelay:5.0];
     }
 }
 
@@ -770,82 +749,13 @@
     return NO;
 }
 
-/************************
- ************************
-          HUD
- ************************
- ************************/
-
-- (void) setupHUD
-{
-    
-    CCLabelTTF *firstPlayerTitle = [CCLabelTTF labelWithString:@"1UP" fontName:@"pixelmix.ttf" fontSize:12];
-    firstPlayerTitle.position =  ccp(50 ,310);
-    [self addChild: firstPlayerTitle];
-    
-    CCLabelTTF *highScoreTitle = [CCLabelTTF labelWithString:@"HI" fontName:@"pixelmix.ttf" fontSize:12];
-    highScoreTitle.position =  ccp(240 ,310);
-    [self addChild: highScoreTitle];
-    
-    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"00000%d", totalScore] fontName:@"pixelmix.ttf" fontSize:12];
-    scoreLabel.color = ccc3(248, 252, 0);
-    scoreLabel.position =  ccp(50 ,295);
-    [self addChild: scoreLabel];
-    
-    CCSprite *playerIcon = [CCSprite spriteWithFile:@"livesIcon.png"];
-    playerIcon.position = ccp(150, 310);
-    playerIcon.scale = 2.5;
-    [self addChild:playerIcon];
-    
-    livesLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", playerLives] fontName:@"pixelmix.ttf" fontSize:12];
-    livesLabel.position =  ccp(150 ,295);
-    livesLabel.color = ccc3(252, 0, 0);
-    [self addChild: livesLabel];
-    
-    highScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"00000%d", playerLives] fontName:@"pixelmix.ttf" fontSize:12];
-    highScoreLabel.position =  ccp(highScoreTitle.position.x ,295);
-    highScoreLabel.color = ccc3(248, 252, 0);
-    [self addChild: highScoreLabel];
-    
-    bonusLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", bonusScore] fontName:@"pixelmix.ttf" fontSize:12];
-    bonusLabel.position = ccp(390, 300);
-    [self addChild:bonusLabel];
-    
-    CCSprite *bonusBox = [CCSprite spriteWithFile:@"bonusBox.png"];
-    bonusBox.position = ccp(390, 300);
-    [self addChild:bonusBox];
-}
-
-- (void) updateHUD
-{
-    [highScoreLabel setString:[self formatStringForHUD:highScore]];
-    [scoreLabel setString:[self formatStringForHUD:totalScore]];
-    [livesLabel setString:[NSString stringWithFormat:@"%d", playerLives]];
-}
-
-- (void) updateBonus:(ccTime)delta
-{
-    if(!playerIsDead)
-    {
-        bonusScore -= 100;
-    }
-    [bonusLabel setString:[self formatStringForHUD:bonusScore]];
-}
-
 - (void) finishLevel
 {
     NSLog(@"LEVEL DONE!");
-    totalScore += bonusScore;
-    bonusScore = 0;
+    game.score += game.bonus;
     
-    if(totalScore > highScore)
-    {
-        highScore = totalScore;
-    }
+    [hud saveHighScore];
     
-    [self saveHighScore];
-    [self updateHUD];
-    [self unscheduleUpdate];
     [self unscheduleAllSelectors];
     
     [jetman removeFromParent];
@@ -853,26 +763,6 @@
     [self performSelector:@selector(reloadLevel) withObject:nil afterDelay:2.0];
     //CCTransitionScene *transition = [CCTransitionScene transitionWithDuration:0.5 scene:[Cutscene scene]];
     //[[CCDirector sharedDirector] replaceScene:transition];
-}
-
-- (void) saveHighScore
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInt:highScore] forKey:@"HIGHSCORE"];
-    [defaults synchronize];
-}
-
-- (void) loadHighScore
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if([defaults objectForKey:@"HIGHSCORE"])
-    {
-        highScore = [defaults objectForKey:@"HIGHSCORE"];
-    }
-    else
-    {
-        highScore = 0;
-    }
 }
 
 @end
