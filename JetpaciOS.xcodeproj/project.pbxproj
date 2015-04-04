@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D090D36178E0A38001D2F7A /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D090D35178E0A38001D2F7A /* Menu.m */; };
+		9D090D3A178E1EF7001D2F7A /* starfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D090D39178E1EF7001D2F7A /* starfield.png */; };
 		9D229A861784AEC00041EEAF /* Level_HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D229A851784AEC00041EEAF /* Level_HUD.m */; };
 		9D229A891784B43F0041EEAF /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D229A881784B43F0041EEAF /* Util.m */; };
 		9D229A8C178B2D1C0041EEAF /* GameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D229A8B178B2D1C0041EEAF /* GameInfo.m */; };
@@ -209,6 +211,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9D090D34178E0A38001D2F7A /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
+		9D090D35178E0A38001D2F7A /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
+		9D090D39178E1EF7001D2F7A /* starfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starfield.png; sourceTree = "<group>"; };
 		9D229A841784AEBF0041EEAF /* Level_HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level_HUD.h; sourceTree = "<group>"; };
 		9D229A851784AEC00041EEAF /* Level_HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level_HUD.m; sourceTree = "<group>"; };
 		9D229A871784B43F0041EEAF /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -718,6 +723,8 @@
 				9D25D2DE177F8CD30020F716 /* HelloWorldLayer.m */,
 				9D25D2E0177F8CD30020F716 /* IntroLayer.h */,
 				9D25D2E1177F8CD30020F716 /* IntroLayer.m */,
+				9D090D34178E0A38001D2F7A /* Menu.h */,
+				9D090D35178E0A38001D2F7A /* Menu.m */,
 				9D229A8E178B2D9D0041EEAF /* Levels */,
 				9D229A8D178B2D7D0041EEAF /* Game Objects */,
 				9D229A841784AEBF0041EEAF /* Level_HUD.h */,
@@ -739,6 +746,7 @@
 				9D25D9801784A7770020F716 /* Fonts */,
 				9D25D9811784A7830020F716 /* Music & Sounds */,
 				9D229A801784A8A40041EEAF /* Sprites */,
+				9D090D39178E1EF7001D2F7A /* starfield.png */,
 				9D25D2E9177F930F0020F716 /* mainBG.png */,
 				9D25D14B177F8CCE0020F716 /* Default.png */,
 				9D25D14D177F8CCE0020F716 /* Default@2x.png */,
@@ -1216,6 +1224,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Escolarea;
+				TargetAttributes = {
+					9D25D131177F8CCE0020F716 = {
+						DevelopmentTeam = YD5FNB475F;
+					};
+				};
 			};
 			buildConfigurationList = 9D25D12D177F8CCE0020F716 /* Build configuration list for PBXProject "JetpaciOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1303,6 +1316,7 @@
 				9D25D7231780CB280020F716 /* Fuel or Rocket Part Set.wav in Resources */,
 				9D25D7251780CB370020F716 /* Start and Item Get.wav in Resources */,
 				9D25D7271780CBE70020F716 /* Jetpac Song.wav in Resources */,
+				9D090D3A178E1EF7001D2F7A /* starfield.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1438,6 +1452,7 @@
 				9D229A861784AEC00041EEAF /* Level_HUD.m in Sources */,
 				9D229A891784B43F0041EEAF /* Util.m in Sources */,
 				9D229A8C178B2D1C0041EEAF /* GameInfo.m in Sources */,
+				9D090D36178E0A38001D2F7A /* Menu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1448,7 +1463,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Odessa Henriquez (F892KJJP4S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Odessa Henriquez (F892KJJP4S)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1460,6 +1476,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PROVISIONING_PROFILE = "E0B57387-B32D-43D8-842C-01DC80A2DA7B";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1469,7 +1486,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Odessa Henriquez (F892KJJP4S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Odessa Henriquez (F892KJJP4S)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
@@ -1479,6 +1497,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PROVISIONING_PROFILE = "E0B57387-B32D-43D8-842C-01DC80A2DA7B";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1503,8 +1522,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0CEAADD7-54DE-4C1D-A27F-1FB570BC7D2F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0CEAADD7-54DE-4C1D-A27F-1FB570BC7D2F";
+				PROVISIONING_PROFILE = "38280205-8A72-4831-8134-3236C9B06272";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "38280205-8A72-4831-8134-3236C9B06272";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1527,8 +1546,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0CEAADD7-54DE-4C1D-A27F-1FB570BC7D2F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0CEAADD7-54DE-4C1D-A27F-1FB570BC7D2F";
+				PROVISIONING_PROFILE = "38280205-8A72-4831-8134-3236C9B06272";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "38280205-8A72-4831-8134-3236C9B06272";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

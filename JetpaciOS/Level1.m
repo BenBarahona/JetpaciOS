@@ -614,6 +614,8 @@
         middleRocket.isBeingHeld = NO;
     
     
+    [self performSelector:@selector(reloadLevel) withObject:nil afterDelay:2.0];
+    /*
     if(game.lives != 0)
     {
         [self performSelector:@selector(reloadLevel) withObject:nil afterDelay:2.0];
@@ -632,6 +634,7 @@
         [[CCDirector sharedDirector] replaceScene:[CCTransitionScene transitionWithDuration:3.0 scene:[Level1 scene]]];
         //[self performSelector:@selector(reloadLevel) withObject:nil afterDelay:5.0];
     }
+     */
 }
 
 /************************
